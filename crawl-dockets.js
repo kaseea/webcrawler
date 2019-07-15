@@ -6,6 +6,7 @@ const fs = require('fs');
 let docketCrawlCount = 0;
 
 const loadPage = function loadPage(url, county) {
+    console.log("loadPage " + url + county)
     request(url, 
         { strictSSL: false, 
             headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'}
@@ -17,9 +18,9 @@ const loadPage = function loadPage(url, county) {
                 // console.log("sup");
                 $('tr').each(function (index) { 
                     if ($(this).find(':nth-child(6)').text()) {
-                        let description = $(this).find(':nth-child(3)').text();
-                        let fee = $(this).find(':nth-child(6)').text();
-                        fee = fee.substring(1, fee.length)
+                        let description = $(this).find(':nth-child(3)').text().trim();
+                        let fee = $(this).find(':nth-child(6)').text().trim();
+                        fee = fee.substring(1, fee.length).trim();
                         let countyFile = 'fees-by-county/' + county + '.txt'; 
                         fs.appendFileSync(countyFile, description + ',' + fee + '\n');
                     }
@@ -31,6 +32,9 @@ const loadPage = function loadPage(url, county) {
       );
 }
 
+// const loadPageTimeout = setTimeout(function loadPageTimeout(link, county) {
+//     setTimeout(loadPage(link, county), 2000);
+// })
 
 const crawlPage = function crawlPage() {
     let county = 'adair';
@@ -40,10 +44,18 @@ const crawlPage = function crawlPage() {
         const betterLink = dataArray.map((link) => 
            link.substring(0, link.length - 1)
         );
-        const splicedLink = betterLink.splice(0,20);
+        const splicedLink = betterLink.splice(0,5);
         console.log('docket links to be anaylzed: ' + splicedLink.length);
         splicedLink.forEach(function(link) {
-            setTimeout(loadPage(link, county), 2000)
+            console.log(link);
+            // setTimeout(loadPage(link, county), 2000);
+            let pleaseSetTimeout = setTimeout(function pleaseSetTimeout() {
+
+                console.log('sending loadPage ' + link);
+                loadPage(link, county);
+            
+              }, 1000)
+            // loadPage(link, county);
         })
         } else {
             console.log('error for crawlPage: ' + err);
