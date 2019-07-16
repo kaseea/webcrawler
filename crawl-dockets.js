@@ -18,11 +18,12 @@ const loadPage = function loadPage(url, county) {
                 // console.log("sup");
                 $('tr').each(function (index) { 
                     if ($(this).find(':nth-child(6)').text()) {
+                        let cmid = url.substr(url.lastIndexOf('=') + 1);
                         let description = $(this).find(':nth-child(3)').text().trim();
                         let fee = $(this).find(':nth-child(6)').text().trim();
                         fee = fee.substring(1, fee.length).trim();
                         let countyFile = 'fees-by-county/' + county + '.txt'; 
-                        fs.appendFileSync(countyFile, description + ',' + fee + '\n');
+                        fs.appendFileSync(countyFile, cmid + ',' + description + ',' + fee + '\n');
                     }
                 })
             } else {

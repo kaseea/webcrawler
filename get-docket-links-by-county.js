@@ -89,6 +89,8 @@ const crawlLinks = function crawlLinks(links) {
 }
 
 
+
+
 crawlLinks(ALL_COUNTIES);
 let myGreeting = setTimeout(function sayHi() {
     distinctLinks = [...new Set(LINKS)];
@@ -100,7 +102,7 @@ let myGreeting = setTimeout(function sayHi() {
     console.log('ddddddddddd dockets crawled: ' + docketCrawlCount);
     distinctLinks.forEach(function(link) {
         linkWritten ++;
-        fs.appendFileSync('adair.txt', link + ',' + '\n');
+        fs.appendFileSync('links-by-county/adair.txt', link + ',' + '\n');
     })
     console.log('llllllllllll links written: ' + linkWritten);
     
