@@ -5,8 +5,9 @@
   "main": "server.js",
   "author": "me!",
   "dependencies": {
+    "cheerio": "latest",
+    "d3": "^5.9.7",
     "express": "latest",
-    "request": "latest",
-    "cheerio": "latest"
+    "request": "latest"
   }
 }

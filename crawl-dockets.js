@@ -15,11 +15,16 @@ const loadPage = function loadPage(url, county) {
             if (!error) {
                 docketCrawlCount ++;
                 let $ = cheerio.load(body);
+                const reg = /,/g;
+                const reg2 = /\n/g;
+
                 // console.log("sup");
                 $('tr').each(function (index) { 
                     if ($(this).find(':nth-child(6)').text()) {
                         let cmid = url.substr(url.lastIndexOf('=') + 1);
                         let description = $(this).find(':nth-child(3)').text().trim();
+                        description = description.replace(reg2, ' ');
+                        description = description.replace(reg, ' ');
                         let fee = $(this).find(':nth-child(6)').text().trim();
                         fee = fee.substring(1, fee.length).trim();
                         let countyFile = 'fees-by-county/' + county + '.txt'; 
