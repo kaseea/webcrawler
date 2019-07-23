@@ -107,7 +107,7 @@ var x = d3.scale.linear()
 var chart = d3.select(".chart")
     .attr("width", width);
 
-    d3.csv("/sums-fees-by-county/adair.txt", type, function(error, data) {
+    d3.csv("/sums-fees-by-county/test.txt", type, function(error, data) {
       console.log("heeeey23");
       // console.log('data   ' + data);
       x.domain([0, d3.max(data, function(d) { 

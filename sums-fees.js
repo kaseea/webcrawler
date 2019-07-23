@@ -1,11 +1,13 @@
 const fs = require('fs');
 
-const DATA = {}
+const DATA = {};
+// const sorted=[];
 
-const errors = {'err': 'so far just this'}
+const errors = {'err': 'so far just this',  
+                'err2': ''}
 
 
-let county = 'test';
+let county = 'ROGERS';
 
 const dataCollection = function dataCollection() {
     fs.readFile('fees-by-county/' + county + '.txt', 'utf8', function (err, data) {
@@ -44,10 +46,15 @@ const dataCollection = function dataCollection() {
                     info[1] = info[1].trim();
                 }
                 info[1] = info[1].replace(reg, '');
+                
                 if (info[1].includes('WARRANT')) {
                     info[1] = 'WARRANT FEE';
                 // } else if (info[1].includes('WARRANT OF ARREST ISSUED')) {
                 //     info[1] = 'WARRANT OF ARREST ISSUED';
+                } else if (info[1].includes('ARREST FEE') || info[1].includes('SHERIFF\'S FEE') || info[1].includes('SHERIFF FEE') || info[1].includes('SHERIFF SERVICE')) {
+                    info[1] = 'SHERIFF SERVICE FEE ACCOUNT';
+                } else if (info[1].includes('FORENSIC')) {
+                    info[1] = 'FORENSIC SCIENCE IMPROVEMENT ASSESSMENT FUND';
                 } else if (info[1].includes('RESTITUTION PAID TO')) {
                     info[1] = 'RESTITUTION PAID TO';
                 } else if (info[1].includes('BOND')) {
@@ -106,26 +113,39 @@ const dataCollection = function dataCollection() {
                     info[1] = 'POWER NUMBER';
                 } else if (info[1].includes('OSBI') || info[1].includes('OSBX')) {
                     info[1] = 'OKLAHOMA STATE BUREAU OF INVESTIGATION';
-                } else if (info[1].includes('DARF') || info[1].includes('DA REV') || info[1].includes('D.A. REV')) {
+                } else if (info[1].includes('DARF') || info[1].includes('DA REV') || info[1].includes('D.A. REV') || info[1].includes('DISTRICT ATTY REV') || info[1].includes('DISTRICT ATTORNEY\'S REV') || info[1].includes('DISTRICT ATTORNEY FEE') || info[1].includes('DISTRICT ATTORNEY REV') || info[1].includes('DISTRICT ATTORNEY COUNCIL REV')) {
                     info[1] = 'DISTRICT ATTORNEY REVOLVING FUND';
                 } else if (info[1].includes('FILE') && info[1].includes('ENTER')) {
                     info[1] = 'FILE AND ENTER FEE';
-                } else if (info[1].includes('DPS') || info[1].includes('DEPARTMENT OF PUBLIC SAFETY')) {
+                } else if (info[1].includes('DPS') || info[1].includes('D.P.S') || info[1].includes('DEPARTMENT OF PUBLIC SAFETY') || info[1].includes('DEPT OF PUBLIC') || info[1].includes('DEPART. OF PUBLIC') || info[1].includes('DEPT. OF PUBLIC')  || info[1].includes('DEPT PUBLIC SAFETY')) {
                     info[1] = 'DPS PATROL VEHICLE REVOLVING FUND';
                 } else if ((info[1].includes('MEDICAL') && !info[1].includes('REIMBURSEMENT')) || info[1].includes('MLRF')) {
                     info[1] = 'MEDICAL EXPENSE LIABILITY REVOLVING FUND';
+                } else if (info[1].includes('COURT FUND')) {
+                    info[1] = 'COURT FUND';
+                } else if (info[1].includes('10%') || info[1].includes('COURT CLERK') || info[1].includes('CLERK\'S FEE')) {   
+                    // console.log(info[1]);
+                    info[1] = 'COURT CLERK REVOLVING FUND';
+                    // console.log(info[1]);
+                    // console.log(fee);
                 }
-
+                // OH FUCK WHY ISNT THIS WORKING
                 
                 // console.log('$$$$$$$$$$ DOES fee > 0 ' + (fee > 0))
                 if (fee > 0) {
 
                     if (DATA.hasOwnProperty(info[1])) {
-                        DATA[info[1]] += fee;
+                        let holder = info[1];
+                        // console.log('were adding a repeat    key ' + holder + '    value  ' + fee)
+                        DATA[holder] += fee;
+                        // console.log(' and DATA[holder] is    ' + DATA[holder])
                         // console.log('we found a repeat  ' + info[1])
                     } else {
-                        // console.log('were adding a new thing')
-                        DATA[info[1]] = fee;
+                        let holder2 = info[1];
+                        // console.log('were adding a new thing    key ' + holder2 + '    value  ' + fee)
+                        
+                        DATA[holder2] = fee;
+                        // console.log(' and DATA[holder] is    ' + DATA[holder2])
                     }
                 }
                 // console.log('**********');
@@ -146,11 +166,27 @@ const dataCollection = function dataCollection() {
 
 
 dataCollection();
-
+// function sorting(obj) {
+// 	for(let key in obj)
+// 		if (obj.hasOwnProperty(key)) {
+// 			sorted.push([key, obj[key]]); // each item is an array in format [key, value]
+//         }
+//         sorted.sort(function(a, b) {
+//             return a[1]-b[1]; // compare numbers
+//         });
+//         return sorted;
+// }
 
 let myGreeting = setTimeout(function sayHi() {
+    console.log('$$$ COUNTY   IS    ' + county);
+
+    // sorting(DATA);
+	// sort items by value
+
+	// return sortable; // array in format [ [ key1, val1 ], [ key2, val2 ], ... ]
     // console.log('end data equals   ' + DATA);
     Object.keys(DATA).forEach(function (item) {
+        // sorted.forEach(function (item) {
         // console.log(item); // key
         // console.log(DATA[item]); // value
         // console.log(typeof DATA[item]);
@@ -159,11 +195,13 @@ let myGreeting = setTimeout(function sayHi() {
         // console.log(Number.isInteger(DATA[item]) && ((DATA[item]) === (DATA[item])));
 
         // && ((DATA[item]) >= 100)
-        if (Number.isInteger(DATA[item]) && ((DATA[item]) === (DATA[item])) && ((DATA[item]) >= 1000)) {
+        if ((typeof DATA[item] === 'number') && ((DATA[item]) === (DATA[item])) && ((DATA[item]) >= 1000)) {
+            console.log((typeof DATA[item] === 'number') && ((DATA[item]) === (DATA[item])) && ((DATA[item]) >= 1000))
             try {
                 fs.appendFileSync('sums-fees-by-county/' + county + '.txt', item + ',' + DATA[item] + '\n');
             } catch (err) {
-                errors['err2'] = 'there was an error on writing sums by county  ' + item + ',' + DATA[item];
+                console.log('************** somethings up in the writing error')
+                errors['err2'] += 'there was an error on writing sums by county  ' + item + ',' + DATA[item];
             }
         } 
     })

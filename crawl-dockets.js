@@ -48,7 +48,7 @@ const loadPage = function loadPage(url, county) {
 // })
 
 const crawlPage = function crawlPage() {
-    let county = 'test';
+    let county = 'ROGERS';
     fs.readFile('links-by-county/' + county + '.txt', 'utf8', function (err, data) {
         if (!err) {
         const dataArray = data.split(/\r?\n/);

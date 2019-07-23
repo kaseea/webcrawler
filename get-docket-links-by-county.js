@@ -4,10 +4,10 @@ const fs = require('fs');
 
 //DONT DO ANYMORE UNTIL I CAN FIGURE OUT HOW TO FUCKING STOP IT 
 
-const ALL_COUNTIES = ["adair", "alfalfa", "APPELLATE", "ATOKA", "BEAVER", 'BECKHAM', 'BLAINE', 'BRYAN', 'CADDO', 'CANADIAN', 'CARTER', 'CHEROKEE', 'CHOCTAW', 'CIMARRON', 'CLEVELAND', 'COAL', 'COMANCHE', 'COTTON', 'CRAIG', 'CREEK', 'bristow', 'drumright', 'CUSTER', 'DELAWARE', 'DEWEY', 'ELLIS', 'GARFIELD', 'GARVIN', 'GRADY', 'GRANT', 'GREER', 'HARMON', 'HARPER', 'HASKELL', 'HUGHES', 'JACKSON', 'JEFFERSON', 'JOHNSTON', 'KAY', 'poncacity', 'KINGFISHER', 'KIOWA', 'LATIMER', 'LEFLORE', 'LINCOLN', 'LOGAN', 'LOVE', 'MAJOR', 'MARSHALL', 'MAYES', 'MCCLAIN', 'MCCURTAIN', 'MCINTOSH', 'MURRAY', 'MUSKOGEE', 'NOBLE', 'NOWATA', 'OKFUSKEE', 'OKLAHOMA', 'OKMULGEE', 'OSAGE', 'OTTAWA', 'PAYNE', 'PAWNEE', 'PITTSBURG', 'PONTOTOC', 'POTTAWATOMIE', 'PUSHMATAHA', 'rogermills', 'ROGERS', 'SEMINOLE', 'SEQUOYAH', 'STEPHENS', 'TEXAS', 'TILLMAN', 'TULSA', 'WAGONER', 'WASHINGTON', 'WASHITA', 'WOODS', 'WOODWARD']
+// const ALL_COUNTIES = ["adair", "alfalfa", "APPELLATE", "ATOKA", "BEAVER", 'BECKHAM', 'BLAINE', 'BRYAN', 'CADDO', 'CANADIAN', 'CARTER', 'CHEROKEE', 'CHOCTAW', 'CIMARRON', 'CLEVELAND', 'COAL', 'COMANCHE', 'COTTON', 'CRAIG', 'CREEK', 'bristow', 'drumright', 'CUSTER', 'DELAWARE', 'DEWEY', 'ELLIS', 'GARFIELD', 'GARVIN', 'GRADY', 'GRANT', 'GREER', 'HARMON', 'HARPER', 'HASKELL', 'HUGHES', 'JACKSON', 'JEFFERSON', 'JOHNSTON', 'KAY', 'poncacity', 'KINGFISHER', 'KIOWA', 'LATIMER', 'LEFLORE', 'LINCOLN', 'LOGAN', 'LOVE', 'MAJOR', 'MARSHALL', 'MAYES', 'MCCLAIN', 'MCCURTAIN', 'MCINTOSH', 'MURRAY', 'MUSKOGEE', 'NOBLE', 'NOWATA', 'OKFUSKEE', 'OKLAHOMA', 'OKMULGEE', 'OSAGE', 'OTTAWA', 'PAYNE', 'PAWNEE', 'PITTSBURG', 'PONTOTOC', 'POTTAWATOMIE', 'PUSHMATAHA', 'rogermills', 'ROGERS', 'SEMINOLE', 'SEQUOYAH', 'STEPHENS', 'TEXAS', 'TILLMAN', 'TULSA', 'WAGONER', 'WASHINGTON', 'WASHITA', 'WOODS', 'WOODWARD']
 // .splice(0,15);
 
-// const ALL_COUNTIES = ["CARTER"];
+const ALL_COUNTIES = ["ROGERS"];
 
 
 console.log(ALL_COUNTIES);
@@ -73,12 +73,12 @@ const crawlLinks = function crawlLinks(links) {
                         } 
                     })
                         
-                    // let lastDateText = $('tr td:nth-child(2)').last().text();
-                    // let lastDate = new Date(lastDateText);
-                    // if ((Date.now() >= lastDate) && ($('tr').length === 501)) {
-                    //     let urlBase = `https://www.oscn.net/dockets/Results.aspx?db=` + element + `&FiledDateL=`;
-                    //     getPage(urlBase, lastDateText);
-                    // }
+                    let lastDateText = $('tr td:nth-child(2)').last().text();
+                    let lastDate = new Date(lastDateText);
+                    if ((Date.now() >= lastDate) && ($('tr').length === 501)) {
+                        let urlBase = `https://www.oscn.net/dockets/Results.aspx?db=` + element + `&FiledDateL=`;
+                        getPage(urlBase, lastDateText);
+                    }
                     // console.log(url);
 
                 } else {
@@ -103,9 +103,9 @@ let myGreeting = setTimeout(function sayHi() {
     console.log('ddddddddddd dockets crawled: ' + docketCrawlCount);
     distinctLinks.forEach(function(link) {
         linkWritten ++;
-        // fs.appendFileSync('links-by-county/' + ALL_COUNTIES + '.txt', link + ',' + '\n');
+        fs.appendFileSync('links-by-county/' + ALL_COUNTIES + '.txt', link + ',' + '\n');
         // works for doing it one at a time but testing wiht test
-        fs.appendFileSync('links-by-county/test.txt', link + ',' + '\n');
+        // fs.appendFileSync('links-by-county/test.txt', link + ',' + '\n');
     })
     console.log('llllllllllll links written: ' + linkWritten);
     
