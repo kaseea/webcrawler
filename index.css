@@ -13,7 +13,9 @@
   }
   
   .chart text {
-    fill: white;
+    /* fill: white; */
+    fill: goldenrod;
     font: 10px sans-serif;
-    text-anchor: end;
+    text-anchor: start;
+    /* text-align: left; */
   }

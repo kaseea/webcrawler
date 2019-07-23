@@ -4,9 +4,12 @@ const fs = require('fs');
 
 
 let docketCrawlCount = 0;
+let loadPageErrors = ['nada'];
+let crawlPageErrors = ['none'];
+let processTime = 0;
 
 const loadPage = function loadPage(url, county) {
-    console.log("loadPage " + url + county)
+    // console.log("loadPage " + url + county)
     request(url, 
         { strictSSL: false, 
             headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'}
@@ -33,6 +36,8 @@ const loadPage = function loadPage(url, county) {
                 })
             } else {
                 console.log("We’ve encountered an error in loadPage: " + error);
+                let tempErr = 'error on ' + url + '  error  ' + error;
+                loadPageErrors.push(tempErr);
             }
         }
       );
@@ -43,28 +48,33 @@ const loadPage = function loadPage(url, county) {
 // })
 
 const crawlPage = function crawlPage() {
-    let county = 'adair';
+    let county = 'test';
     fs.readFile('links-by-county/' + county + '.txt', 'utf8', function (err, data) {
         if (!err) {
         const dataArray = data.split(/\r?\n/);
         const betterLink = dataArray.map((link) => 
            link.substring(0, link.length - 1)
         );
-        const splicedLink = betterLink.splice(0,5);
-        console.log('docket links to be anaylzed: ' + splicedLink.length);
-        splicedLink.forEach(function(link) {
+        // const splicedLink = betterLink.splice(0,5);
+        console.log('docket links to be anaylzed: ' + betterLink.length);
+        processTime = betterLink.length * 101;
+        betterLink.forEach(function(link, index) {
             console.log(link);
+            console.log(index);
             // setTimeout(loadPage(link, county), 2000);
             let pleaseSetTimeout = setTimeout(function pleaseSetTimeout() {
 
                 console.log('sending loadPage ' + link);
                 loadPage(link, county);
+                console.log('index in timeout   ' + index);
             
-              }, 1000)
+            }, index * 100)
             // loadPage(link, county);
         })
         } else {
             console.log('error for crawlPage: ' + err);
+            let newErr = 'error writing ' + err;
+            crawlPageErrors.push(newErr)
         }
       });
     // txtFile.forEach(function(link) {
@@ -82,9 +92,16 @@ crawlPage()
 // // stop for sometime if needed
 // setTimeout(myFunction, 5000);
 
+let findTimout = setTimeout(function waiting() {
+    let myGreeting = setTimeout(function sayHi() {
+        // crawlPage(distinctLinks);
+        console.log('ddddddddddd dockets crawled: ' + docketCrawlCount);
+        loadPageErrors.forEach(function(err) {
+            console.log(err);
+        })
+        crawlPageErrors.forEach(function(err) {
+            console.log(err);
+        })
 
-let myGreeting = setTimeout(function sayHi() {
-    // crawlPage(distinctLinks);
-    console.log('ddddddddddd dockets crawled: ' + docketCrawlCount);
-
-  }, 100000)
+    }, processTime)
+}, 10000)
