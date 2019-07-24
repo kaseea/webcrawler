@@ -4,13 +4,18 @@ const fs = require('fs');
 
 //DONT DO ANYMORE UNTIL I CAN FIGURE OUT HOW TO FUCKING STOP IT 
 
-// const ALL_COUNTIES = ["adair", "alfalfa", "APPELLATE", "ATOKA", "BEAVER", 'BECKHAM', 'BLAINE', 'BRYAN', 'CADDO', 'CANADIAN', 'CARTER', 'CHEROKEE', 'CHOCTAW', 'CIMARRON', 'CLEVELAND', 'COAL', 'COMANCHE', 'COTTON', 'CRAIG', 'CREEK', 'bristow', 'drumright', 'CUSTER', 'DELAWARE', 'DEWEY', 'ELLIS', 'GARFIELD', 'GARVIN', 'GRADY', 'GRANT', 'GREER', 'HARMON', 'HARPER', 'HASKELL', 'HUGHES', 'JACKSON', 'JEFFERSON', 'JOHNSTON', 'KAY', 'poncacity', 'KINGFISHER', 'KIOWA', 'LATIMER', 'LEFLORE', 'LINCOLN', 'LOGAN', 'LOVE', 'MAJOR', 'MARSHALL', 'MAYES', 'MCCLAIN', 'MCCURTAIN', 'MCINTOSH', 'MURRAY', 'MUSKOGEE', 'NOBLE', 'NOWATA', 'OKFUSKEE', 'OKLAHOMA', 'OKMULGEE', 'OSAGE', 'OTTAWA', 'PAYNE', 'PAWNEE', 'PITTSBURG', 'PONTOTOC', 'POTTAWATOMIE', 'PUSHMATAHA', 'rogermills', 'ROGERS', 'SEMINOLE', 'SEQUOYAH', 'STEPHENS', 'TEXAS', 'TILLMAN', 'TULSA', 'WAGONER', 'WASHINGTON', 'WASHITA', 'WOODS', 'WOODWARD']
+// had to close out the window so try async/await?  lots of links collected though
+
+// "APPELLATE" out because it doesn't work
+
+// const ALL_COUNTIES = ["adair", "alfalfa", "ATOKA", "BEAVER", 'BECKHAM', 'BLAINE', 'BRYAN', 'CADDO', 'CANADIAN', 'CARTER', 'CHEROKEE', 'CHOCTAW', 'CIMARRON', 'CLEVELAND', 'COAL', 'COMANCHE', 'COTTON', 'CRAIG', 'CREEK', 'bristow', 'drumright', 'CUSTER', 'DELAWARE', 'DEWEY', 'ELLIS', 'GARFIELD', 'GARVIN', 'GRADY', 'GRANT', 'GREER', 'HARMON', 'HARPER', 'HASKELL', 'HUGHES', 'JACKSON', 'JEFFERSON', 'JOHNSTON', 'KAY', 'poncacity', 'KINGFISHER', 'KIOWA', 'LATIMER', 'LEFLORE', 'LINCOLN', 'LOGAN', 'LOVE', 'MAJOR', 'MARSHALL', 'MAYES', 'MCCLAIN', 'MCCURTAIN', 'MCINTOSH', 'MURRAY', 'MUSKOGEE', 'NOBLE', 'NOWATA', 'OKFUSKEE', 'OKLAHOMA', 'OKMULGEE', 'OSAGE', 'OTTAWA', 'PAYNE', 'PAWNEE', 'PITTSBURG', 'PONTOTOC', 'POTTAWATOMIE', 'PUSHMATAHA', 'rogermills', 'ROGERS', 'SEMINOLE', 'SEQUOYAH', 'STEPHENS', 'TEXAS', 'TILLMAN', 'TULSA', 'WAGONER', 'WASHINGTON', 'WASHITA', 'WOODS', 'WOODWARD']
 // .splice(0,15);
 
-const ALL_COUNTIES = ["ROGERS"];
+const ALL_COUNTIES = ["PAWNEE"];
+const ERRORS = [];
 
 
-console.log(ALL_COUNTIES);
+// console.log(ALL_COUNTIES);
 const LINKS = [];
 let distinctLinks = [];
 let pageCrawlCount = 0;
@@ -18,9 +23,13 @@ let linkCount = 0;
 let docketCrawlCount = 0;
 let linkWritten = 0;
 
+
+
+// ADD SOMETHING TO COUNT BY COUNTY
 const processResponse = function processResponse($) {
-    $('a[href^="GetCaseInformation"]').each(function(index) {
-        if ($(this).text().includes('STATE OF OKLAHOMA')) {
+    $('a[href^="GetCaseInformation"]').each(function() {
+        let title = $(this).text().toUpperCase();
+        if (title.includes('STATE OF OKLAHOMA V')) {
             let link = `https://www.oscn.net/dockets/` + $(this).attr('href')
             linkCount ++;
             LINKS.push(link);       
@@ -50,6 +59,7 @@ const getPage = function getPage(urlBase, lastDate) {
                 }
             } else {
                 console.log("We’ve encountered an error at the docket page: " + error);
+                ERRORS.push(error);
             }
         })
 }
@@ -65,8 +75,10 @@ const crawlLinks = function crawlLinks(links) {
                 if (!error) {
                     pageCrawlCount ++;
                     let $ = cheerio.load(body);
-                    $('a[href^="GetCaseInformation"]').each(function(index) {
-                        if ($(this).text().includes('STATE OF OKLAHOMA')) {
+                    // ignore case
+                    $('a[href^="GetCaseInformation"]').each(function() {
+                        let title = $(this).text().toUpperCase();
+                        if (title.includes('STATE OF OKLAHOMA V')) {
                             let link = `https://www.oscn.net/dockets/` + $(this).attr('href')
                             linkCount ++;
                             LINKS.push(link);    
@@ -83,12 +95,18 @@ const crawlLinks = function crawlLinks(links) {
 
                 } else {
                     console.log("We’ve encountered an error: " + error);
+                    ERRORS.push(error);
                 }
             }
           );
     } )
 }
 
+
+
+// if I run everything at once, should be ok, I hope, don't need the county for a file, just call it total
+// and then the set will take care of everything
+// maybe add something to have a count of links by county
 
 
 
@@ -105,13 +123,15 @@ let myGreeting = setTimeout(function sayHi() {
         linkWritten ++;
         fs.appendFileSync('links-by-county/' + ALL_COUNTIES + '.txt', link + ',' + '\n');
         // works for doing it one at a time but testing wiht test
-        // fs.appendFileSync('links-by-county/test.txt', link + ',' + '\n');
+        // fs.appendFileSync('links-by-county/total.txt', link + '\n');
     })
     console.log('llllllllllll links written: ' + linkWritten);
-    
+    ERRORS.forEach(function(err) {
+        console.log(err);
+    });
     
     // let county = element + '.txt'; 
     // fs.appendFileSync('adair.txt', link + ',' + fee + '\n');
 
 
-  }, 200000)
+  }, 400000)

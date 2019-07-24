@@ -1,0 +1,125 @@
+Description,mount
+BOND FOR,9170
+COURT COSTS ON DUI,5661
+DPS PATROL VEHICLE FUND FEE ASSESSMENT,5558
+TRAUMA CARE ASSISTANCE REVOLVING FUND,8180
+DA COUNCIL PROSECUTION ASSESSMENT FOR MISDEMEANOR,4980
+OKLAHOMA COURT INFORMATION SYSTEM REVOLVING FUND,15352
+DPS IMPAIRED DRIVER DATABASE FEE,225
+SHERIFF’S SERVICE FEE FOR COURT HOUSE SECURITY,3324
+FORENSIC SCIENCE IMPROVEMENT ASSESSMENT,3309
+MEDICAL EXPENSE LIABILITY REVOLVING FUND,1880
+AFIS FEE,3309
+CLEET PENALTY ASSESSMENT,3321
+LAW LIBRARY FEE,2298
+FINES PAYABLE TO COUNTY***,23921
+VICTIMS COMPENSATION ASSESSMENT (AC12)***,9650
+DRUG ABUSE EDUCATION/TREATMENT FEE (MENTAL HEALTH)***,1400
+SHERIFF'S FUND - INMATE JAIL COSTS                      Document Available at Court Clerk's Office,20025
+COURT COSTS ON MISDEMEANOR,15106
+VICTIMS COMPENSATION ASSESSMENT (AC12)****,300
+TRAUMA CARE ASSISTANCE REVOLVING FUND***,1800
+BUREAU OF NARCOTICS DRUG EDUCATION REVOLVING FUND,145
+FINES PAYABLE TO COUNTY,6306
+DEPARTMENT OF WILDLIFE - FINES (AC15),570
+COURT COSTS ON SEAT BELT VIOLATION,1120
+BENCH WARRANT ISSUED FAILED TO APPEAR,4250
+DISPUTE MEDIATION FEE,28
+OKLAHOMA COURT APPOINTED SPECIAL ADVOCATES,25
+SHERIFF'S SERVICE FEE FOR COURTHOUSE SECURITY PER BOARD OF COUNTY COMMISSIONER,40
+COURT CLERK ADMINISTRATIVE FEE ON COURTHOUSE SECURITY PER BOARD OF COUNTY COMMISSIONER,4
+STATE JUDICIAL REVOLVING FUND - INTERPRETER AND TRANSLATOR SERVICES,2
+DISTRICT COURT ADMINISTRATIVE FEE ON $1.55 COLLECTIONS,1
+DISTRICT COURT ADMINISTRATIVE FEE ON COURTHOUSE SECURITY PER BOARD OF COUNTY COMMISSIONER,6
+LENGTHY TRIAL FUND,40
+PETITION                                                       Document Available (#1042579613)                                 TIFF                                                                    PDF,85
+WARRANT OF ARREST ISSUED,4850
+SHERIFF'S FUND - INMATE JAIL COSTS                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,3368
+TRAFFIC COSTS,13024
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE TR-17-501)                      Document Available at Court Clerk's Office,3
+COURT FUND ASSESSMENT ***,8675
+DEPARTMENT OF WILDLIFE - FINES (AC15)***,425
+RESTITUTION PAID TO,2
+NOTICE OF FAILURE TO COMPLY ELECTRONICALLY TRANSFERRED TO THE ADMINISTRATIVE OFFICE OF THE COURTS.,270
+APPLICATION AND ORDER FOR APPOINTED COUNSEL                      Document Available at Court Clerk's Office,1280
+IDS ATTORNEY FEES - CRIMINAL ONLY***,5400
+APPLICATION AND ORDER FOR APPOINTED COUNSEL                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,560
+COURT COSTS ON FELONY,3296
+DA COUNCIL PROSECUTION ASSESSMENT FOR FELONY,1450
+IDS ATTORNEY FEES - CRIMINAL ONLY****,875
+TRANSPORT COST - SHERIFF,450
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CM-19-12)                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,120
+COURT FUND ASSESSMENT ****,800
+PETITION,300
+FINES PAYABLE TO COUNTY****,100
+DA DRUG  FUND***,200
+COURT FUND ASSESSMENT***,3300
+CLERK'S BENCH WARRANT FEE {TITLE 22 O.S.966A},5
+DA DRUG FUND***,1940
+APPLICATION FOR INDIGENT DEFENSE                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,80
+FINES PAYABLE TO COUNTY**,650
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CM-15-48)                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,2
+APPLICATION FOR APPOINTED COUNSEL                      Document Available at Court Clerk's Office,160
+DA DRUG FUND****,1
+OSBI LAB ANALYSIS - CRIMINAL ONLY***,165
+SUBPOENA ISSUED   STACI COLE MCKINSEY FUSON                                                       Document Available (#1043629788)                                 TIFF                                                                    PDF,50
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CM-19-61)                      Document Available at Court Clerk's Office,2
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CM-12-409)                      Document Available at Court Clerk's Office,60
+VERIFICATION OF INCARCERATION FEES                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,31
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-2018-46)                      Document Available at Court Clerk's Office,3
+FINE PAYABLE TO DPS REVOLVING FUND,250
+***FINES PAYABLE TO COUNTY,500
+VERIFICATION OF INCARCERATION FEES                      Document Available at Court Clerk's Office,420
+VICTIMS COMPENSATION ASSESSMENT (AC12***),100
+SUBPEONA SERVED REY MARTINEZ ON 6/20/2019                                                       Document Available (#1044186556)                                 TIFF                                                                    PDF,50
+SUBPOENA SERVED : DARREL  DUGGER  6/22/2019                                                       Document Available (#1044186755)                                 TIFF                                                                    PDF,50
+SUBPOENA SERVED: JOHN  POWERS  6/30/2019                                                       Document Available (#1044187480)                                 TIFF                                                                    PDF,50
+TRAUMA CARE ASSISTANCE REVOLVING FUND**,100
+COURT FUND ASSESSMENT >***,200
+SUBPOENA SERVED:  CINDY  STEWART  6/22/2019                                                       Document Available (#1044186751)                                 TIFF                                                                    PDF,50
+APPLICATION FOR APPOINTED COUNSEL $40.00 WAS CHARGED IN CASE NO. CM 2016-24                      Document Available at Court Clerk's Office,40
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE TR-17-272)                      Document Available at Court Clerk's Office,150
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-2010-58)                      Document Available at Court Clerk's Office,4
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-2018-189)                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,90
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-2019-85)                      Document Available at Court Clerk's Office,2
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-2012-85)                      Document Available at Court Clerk's Office,900
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-12-85)                      Document Available at Court Clerk's Office,2
+APPLICATION FOR INDIGENT DEFENSE                      Document Available at Court Clerk's Office,160
+***COURT FUND ASSESSMENT,250
+***VICTIMS COMPENSATION ASSESSMENT (AC12),100
+***IDS ATTORNEY FEES - CRIMINAL ONLY,150
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CM-2018-99)                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,1
+BOND INITIAL FILING JAIL FUND FEE,50
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-17-172)                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,240
+BOND FEE REALLOCATION FROM COURT FUND,-50
+COURT CLERK ADMINISTRATIVE FEE ON $25 COLLECTIONS,5
+VICTIMS COMPENSATION ASSESSMENT (AC12)***`,100
+APPLICATION FOR APPOINTED COUNSEL                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,40
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CM-2005-495)                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,9
+SUBPOENA SERVED : CRYSTAL  CHUCULATE  6/22/2019                                                       Document Available (#1044186743)                                 TIFF                                                                    PDF,50
+SUBPOENA SERVED :  7/9/2019   CRYSTAL CHUCULATE                                                       Document Available (#1044250671)                                 TIFF                                                                    PDF,50
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-2017-171)                      Document Available at Court Clerk's Office,1
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-17-171)                      Document Available at Court Clerk's Office,1
+SUBPEONA SERVED: GRANT DUNCAN ON 6/20/2019                                                       Document Available (#1044186560)                                 TIFF                                                                    PDF,50
+SUBPOENA SERVED:  6/24/2019  BOB  GIRDNER                                                       Document Available (#1044186788)                                 TIFF                                                                    PDF,50
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CM-16-224)                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,1
+VICTIMS COMPENSATION ASSESSMENT (AC12),100
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-17-259)                      Document Available at Court Clerk's Office,1
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE TR-15-456)                      Document Available at Court Clerk's Office,630
+***DISTRICT ATTORNEY DRUG ASSESSMENT,90
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CM-2019-124)                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,540
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-2018-93)                      Document Available at Court Clerk's Office,390
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CM-98-463)                      Document Available at Court Clerk's Office,90
+LITTERING AND DUMPING REWARD FUND***,100
+COURT REPORTER FEE-TRIAL ON MERITS,20
+SUBPOENA DUCES TECUM SERVED :7/9/19 CUSTODIAN  OF RECORDS                      Pursuant to 12 O.S. § 39  Document Available at Court Clerk's Office,50
+SUBPOENA SERVED 6/22/2019  KRYSTAL  ENGLAND                                                       Document Available (#1044186796)                                 TIFF                                                                    PDF,50
+SUBPOENA SERVED : 6/22/2019  STEPHEN  JORDAN C/O KRYSTAL  JORDAN                                                       Document Available (#1044186792)                                 TIFF                                                                    PDF,50
+SUBPOENA SERVED:  KEVIN  FLETCHER  7/9/2019                                                       Document Available (#1044250651)                                 TIFF                                                                    PDF,50
+SUBPOENA SERVED:  JESSE  AKINS   6/22/2019                                                       Document Available (#1044186763)                                 TIFF                                                                    PDF,50
+SUBPOENA SERVED:  KENDRA  SAM  6/26/2019                                                       Document Available (#1044187343)                                 TIFF                                                                    PDF,50
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-2019-55)                      Document Available at Court Clerk's Office,360
+APPLICATION FOR STATE TAX ENFORCEMENT                                                       Document Available (#1043839409)                                 TIFF                                                                    PDF,150
+GARNISHMENT AFFIDAVIT W/SUMMONS - CONTINUING WAGE                      Document Unavailable (#1044251466),73
+SHERIFF'S FUND - INMATE JAIL COSTS (FEE ASSESSED IN CASE CF-2019-50)                      Document Available at Court Clerk's Office,1
+APPLICATION AND ORDER FOR APPOINTED COUNSEL                      Document Unavailable (#1044186379),40
