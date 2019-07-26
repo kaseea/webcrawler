@@ -67,7 +67,7 @@ const toUSD = function toUSD(val) {
 const width = 1020
 //     barHeight = 40;
 
-const height = 1020
+const height = 1820
 
     const svg = d3.select('body').select('svg');
 
@@ -82,9 +82,9 @@ let counter = 0;
 let counter2 = 0;
 
 const render = data => {
-  const xValue = d => d.mount;
+  const xValue = d => d.mount/100;
   const yValue = d => d.Description;
-  const margin = { top: 50, right: 40, bottom: 77, left: 180 };
+  const margin = { top: 50, right: 50, bottom: 80, left: 180 };
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
   
@@ -104,21 +104,32 @@ const render = data => {
   //   format('.3s')(number)
   //     .replace('G', 'B');
   
-  const xAxis = d3.axisBottom(xScale)
+  // const xAxis = d3.axisBottom(xScale)
     // .tickFormat(xAxisTickFormat)
-    .tickSize(-innerHeight);
+    // .tickSize(-innerHeight);
   
-  g.append('g')
-    .call(d3.axisLeft(yScale))
+  g.append('g').call(d3.axisLeft(yScale))
     .selectAll('.domain, .tick line')
-      .remove()
+      .remove();
     // .call(log,'.tick text')
+    // .selectAll('.tick text')
+
+  g.append('g').call(d3.axisLeft(yScale))
     .selectAll('.tick text')
+      // .remove()
       // .log('$$$$$$$')
-      .call(wrap, 110);
-  
-  const xAxisG = g.append('g').call(xAxis)
-    .attr('transform', `translate(0,${innerHeight})`);
+      // .call(wrap, 110);
+      .call(wrap, 140)
+
+  g.append('g').call(d3.axisBottom(xScale).tickFormat(d3.format(",d")))
+    .attr('transform', `translate(0,${innerHeight})`)
+
+  // g.append('g').call(d3.axisBottom(xScale).tickSize(-innerHeight))
+    
+
+
+  // const xAxisG = g.append('g').call(xAxis)
+  //   .attr('transform', `translate(0,${innerHeight})`);
   
   // xAxisG.select('.domain').remove();
   
@@ -147,19 +158,26 @@ const render = data => {
 // wrap function from internet, d3 creaters blog
 function wrap(text, w2) {
   console.log(w2)
-  console.log('sadsaf ' + text)
+  console.log('sadsaf ' + text.constructor)
   console.log('fdsf  ' + (typeof text))
+  console.log(Object.keys(text))
   // let w2 = 180;
   text.each(function() {
-    var text = d3.select(this),
+    console.log("BBBB")
+    console.log(d3.select(this))
+    let text = d3.select(this),
         words = text.text().split(/\s+/).reverse(),
         word,
         line = [],
         lineNumber = 0,
         lineHeight = 1.1, // ems
-        y = text.attr("y"),
+        x = text.attr("x"),
         dy = parseFloat(text.attr("dy")),
-        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+        tspan = text.text("").append("tspan").attr("x", x).attr("y", 0).attr("dy", dy + "em");
+        // console.log(y)
+        console.log(dy)
+        console.log(words)
+        console.log(tspan)
     while (word = words.pop()) {
       line.push(word);
       tspan.text(line.join(" "));
@@ -167,8 +185,7 @@ function wrap(text, w2) {
         line.pop();
         tspan.text(line.join(" "));
         line = [word];
-        console.log('22222  ' + line);
-        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+        tspan = text.append("tspan").attr("x", x).attr("y", 0).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
       }
     }
   });

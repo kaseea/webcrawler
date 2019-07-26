@@ -34,7 +34,9 @@ text {
 
 .tick text {
   font-size: 1em;
-  fill: #635F5D;
+  /* fill: #635F5D; */
+  fill: tomato;
+  /* word-wrap: break-word; */
 }
 
 .tick line {
