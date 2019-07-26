@@ -7,15 +7,47 @@
     color: white;
   }
    */
-
+/* 
    .chart rect {
     fill: steelblue;
   }
   
   .chart text {
-    /* fill: white; */
     fill: goldenrod;
     font: 10px sans-serif;
-    text-anchor: start;
-    /* text-align: left; */
-  }
+    text-anchor: end;
+  } */
+
+  body {
+  margin: 0px;
+  height: 100%;
+  /* overflow: hidden; */
+}
+
+rect {
+  fill: steelblue
+}
+
+text {
+  font-family: sans-serif;
+}
+
+.tick text {
+  font-size: 1em;
+  fill: #635F5D;
+}
+
+.tick line {
+  stroke: #C0C0BB;
+}
+
+.axis-label {
+  font-size: 5em;
+  fill: #8E8883;
+}
+
+.title {
+  font-size: 3.2em;
+  fill: goldenrod;
+  /* color: goldenrod; */
+}

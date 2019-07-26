@@ -148,6 +148,8 @@ const dataCollection = function dataCollection() {
                     info[2] = 'WILDLIFE FINES';                    
                 } else if (info[2].includes('10%') || info[2].includes('COURT CLERK') || info[2].includes('CLERK\'S FEE')) {   
                     info[2] = 'COURT CLERK REVOLVING FUND';
+                } else {
+                    info[2] = 'MISCELLANEOUS';
                 }
                 
                 if (fee > 0) {
@@ -179,26 +181,27 @@ dataCollection();
 
 let myGreeting = setTimeout(function sayHi() {
     // console.log('$$$ COUNTY   IS    ' + county);
-    // Object.keys(DATA).forEach(function (item) {
-    //     if ((typeof DATA[item] === 'number') && ((DATA[item]) === (DATA[item])) && ((DATA[item]) >= 100)) {
-    //         console.log((typeof DATA[item] === 'number') && ((DATA[item]) === (DATA[item])) && ((DATA[item]) >= 1000))
-    //         try {
-    //             fs.appendFileSync('sums-fees-by-county/' + county + '.txt', item + ',' + DATA[item] + '\n');
-    //         } catch (err) {
-    //             console.log('************** somethings up in the writing error')
-    //             errors['err2'] += 'there was an error on writing sums by county  ' + item + ',' + DATA[item];
-    //         }
-    //     } 
-    // })
+    Object.keys(DATA).forEach(function (item) {
+        if ((typeof DATA[item] === 'number') && ((DATA[item]) === (DATA[item])) && ((DATA[item]) >= 100)) {
+            // console.log((typeof DATA[item] === 'number') && ((DATA[item]) === (DATA[item])) && ((DATA[item]) >= 1000))
+            try {
+                // fs.appendFileSync('sums-fees-by-county/' + county + '.txt', item + ',' + DATA[item] + '\n');
+                fs.appendFileSync('sums-fees-by-county/all.txt', item + ',' + DATA[item] + '\n')
+            } catch (err) {
+                console.log('************** somethings up in the writing error')
+                errors['err2'] += 'there was an error on writing sums by county  ' + item + ',' + DATA[item];
+            }
+        } 
+    })
     Object.keys(counties).forEach(function (item) {
-        console.log(item + '     ' + counties[item].feesCount  + '    ' + counties[item].feeTotal)
-        console.log('lets try a set ' + counties[item].cmids.size + ' and contents ' + counties[item].cmids);
-        // try {
-        //     fs.appendFileSync('sums-fees-by-county/countytotal.txt', item + ',' + counties[item].feesCount + ',' + counties[item].feeTotal + '\n');
-        // } catch (err) {
-        //     console.log('************** somethings up in the writing error')
-        //     errors['err2'] += 'there was an error on writing sums by county  ' + item + ',' + DATA[item];
-        // }
+        // console.log(item + '     ' + counties[item].feesCount  + '    ' + counties[item].feeTotal);
+        // console.log('lets try a set ' + counties[item].cmids.size + ' and contents ' + counties[item].cmids);
+        try {
+            fs.appendFileSync('sums-fees-by-county/countytotal.txt', item + ',' + counties[item].feesCount + ',' + counties[item].feeTotal  + ',' + counties[item].cmids.size + '\n');
+        } catch (err) {
+            console.log('************** somethings up in the writing error');
+            errors['err2'] += 'there was an error on writing sums by county  ' + item;
+        }
     })
     console.log('fee for all counties    ' + allFees);
 
