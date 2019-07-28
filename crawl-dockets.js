@@ -8,6 +8,7 @@ let loadPageErrors = ['nada'];
 let crawlPageErrors = ['none'];
 let processTime = 0;
 const ERRORS = ['nope'];
+let cmidsCrawled = 0;
 
 // REMINDERS
 // remove the code that takes out last , cause I just decided not to write that comma
@@ -43,7 +44,7 @@ const loadPage = function loadPage(url, county) {
                         fee = fee.replace(reg, '');
                         fee = fee.trim();
                         // let countyFile = 'fees-by-county/' + county + '.txt'; 
-                        let countyFile = 'fees-by-county/testWithoutComma.txt'; 
+                        let countyFile = 'fees-by-county/missing.txt'; 
                         if ((fee !== 'mount') && (description !== 'Description')) {
                             try {
                                 fs.appendFileSync(countyFile, count + ',' + cmid + ',' + description + ',' + fee + '\n');
@@ -70,12 +71,12 @@ const loadPage = function loadPage(url, county) {
 // })
 
 const crawlPage = function crawlPage() {
-    let county = 'total';
+    let county = 'missing';
     fs.readFile('links-by-county/' + county + '.txt', 'utf8', function (err, data) {
         if (!err) {
         const dataArray = data.split(/\r?\n/);
         console.log('docket links to be anaylzed: ' + dataArray.length);
-        processTime = dataArray.length * 101;
+        processTime = dataArray.length * 150;
         // let tempArray = dataArray.splice(0,1500);
         // processTime = tempArray.length * 101;
         // console.log('docket links to be anaylzed: ' + tempArray.length)
@@ -89,7 +90,7 @@ const crawlPage = function crawlPage() {
                 loadPage(link, county);
                 // console.log('index in timeout   ' + index);
             
-            }, index * 100)
+            }, index * 300)
             // loadPage(link, county);
         })
         } else {

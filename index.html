@@ -1,17 +1,150 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="utf-8">
-  <title>STUFFFF</title>
-  <link rel="stylesheet" href="index.css">
-</head>
-<body>
-<h1></h1>
-<!-- <svg class="chart"></svg> -->
-<svg width="960" height="2000"></svg>
-<div class="names"></div>
-<!-- <script src="https://d3js.org/d3.v3.min.js"  charset="utf-8"></script> -->
-<script src="https://unpkg.com/d3@5.6.0/dist/d3.min.js"  charset="utf-8"></script>
-<script type="text/javascript" src="index.js"></script>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>D3: Loading GeoJSON data and generating SVG paths</title>
+    <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+    <script src="https://unpkg.com/d3@5.6.0/dist/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <style type="text/css">
+      /* No style rules here yet */
+body,html{
+    margin: 0;
+    padding: 0;
+    font-family: "Arial", sans-serif;
+    font-size: 11px;
+    text-align: center;
+  }
+/*
+#chart{
+    background-color: #F5F2EB;
+    border: 1px solid #CCC;
+  }   */
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      let w = 1000;
+      let h = 1000;
+
+      console.log("something")
+
+      let margin = {
+          top: 60,
+          bottom: 40,
+          left: 70,
+          right: 40
+        };
+
+      const toUSD = function toUSD(val) {
+        if (val === undefined) {
+          return "info unavailable";
+        } else {
+          val = val.toString();
+          let monies = '$' + val.substring(0,(val.length - 2)) + '.' + val.substring((val.length -2),(val.length));
+          return monies;
+        }
+      }
+
+      let width = w - margin.left - margin.right;
+      let height = h - margin.top - margin.bottom;
+
+      const tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(d => `<strong>County: ${d.properties.NAME}</strong><br> total: ${toUSD(d.properties.value)}`);
+
+      // define map projection
+      const projection = d3.geoAlbersUsa()
+        .translate([w/2, h/4])
+        .scale([5500]);
+
+      //Define default path generator
+      const path = d3.geoPath()
+        .projection(projection);
+
+      const svg = d3.select("body")
+        .append("svg")
+        .attr("id", "chart")
+        .attr("width", w)
+        .attr("height", h)
+        .append("g")
+        .attr("tranform", "translate(0" + margin.left + "," + margin.top + ")");
+
+      svg.call(tip);
+
+      const color = d3.scaleQuantile()
+        .range(["rgb(237, 248, 233)", "rgb(186, 228, 179)", "rgb(116,196,118)", "rgb(49,163,84)", "rgb(0,109,44)"]);
+
+      d3.csv("sums-fees-by-county/countyTotalForMap2.txt").then(function(data) {
+        console.log('bueller?')
+
+        color.domain([ d3.min(data, function(d){ return d.value; }),
+          d3.max(data, function(d){ return d.value; })
+          ]);
+
+      d3.json("oklahoma.json").then(function(json) {
+        console.log('buller?')
+        for(let i = 0; i < data.length; i++){
+          let county = data[i].county;
+          // console.log(" data state " + dataState)
+          //grab data value, and convert from string to float
+          let val = parseFloat(data[i].value);
+          // console.log('data value    ' + dataValue)
+          for (let n = 0; n < json.features.length; n++){
+            let jsonCounty = json.features[n].properties.NAME.toUpperCase();
+            // should probably do the regex from earlier code to make sure 
+            // theres no space instead of doing it manually
+            if(county == jsonCounty){
+              json.features[n].properties.value = val;
+              break;
+            }
+          }
+        }
+
+        svg.selectAll("path")
+          .data(json.features)
+          .enter()
+          .append("path")
+          .attr("d", path)
+          .attr('stroke', 'grey')
+          .on('mouseover',function(d){
+            tip.show(d);
+              this.style['stroke-opacity'] = 7
+              this.style['stroke-width'] = 4
+            // d3.select(this)
+            //   .style('fill-opacity', 1)
+            //   .style('stroke-opacity', 1)
+            //   .style('stroke-width', 2)
+          })
+          .on("mouseout", function(d) {		
+            div.transition()		
+                .duration(500)		
+                .style("opacity", 0);	
+          })
+          .on('mouseout', function(d){
+            tip.hide(d);
+            d3.select(this)
+              .style('fill-opacity', 0.8)
+              .style('stroke-opacity', 0.5)
+              .style('stroke-width', 1)
+          })
+          .style("fill", function(d){
+            //get the data value
+            console.log(d)
+            console.log(d.properties)
+            let value = d.properties.value;
+            console.log(value)
+            if(value){
+              return color(value);
+            } else {
+              // how I found my errors of missing data
+              return "#ccc"
+            }
+          });
+      });
+})
+
+    </script>
+  </body>
 </html>

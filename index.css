@@ -1,27 +1,7 @@
-/* .chart div {
-    font: 10px sans-serif;
-    background-color: steelblue;
-    text-align: right;
-    padding: 3px;
-    margin: 1px;
-    color: white;
-  }
-   */
-/* 
-   .chart rect {
-    fill: steelblue;
-  }
-  
-  .chart text {
-    fill: goldenrod;
-    font: 10px sans-serif;
-    text-anchor: end;
-  } */
 
   body {
   margin: 0px;
   height: 100%;
-  /* overflow: hidden; */
 }
 
 rect {
@@ -34,9 +14,7 @@ text {
 
 .tick text {
   font-size: 1em;
-  /* fill: #635F5D; */
-  fill: tomato;
-  /* word-wrap: break-word; */
+  fill: #635F5D;
 }
 
 .tick line {
@@ -51,5 +29,4 @@ text {
 .title {
   font-size: 3.2em;
   fill: goldenrod;
-  /* color: goldenrod; */
 }

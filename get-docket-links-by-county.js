@@ -11,8 +11,9 @@ const fs = require('fs');
 // const ALL_COUNTIES = ["adair", "alfalfa", "ATOKA", "BEAVER", 'BECKHAM', 'BLAINE', 'BRYAN', 'CADDO', 'CANADIAN', 'CARTER', 'CHEROKEE', 'CHOCTAW', 'CIMARRON', 'CLEVELAND', 'COAL', 'COMANCHE', 'COTTON', 'CRAIG', 'CREEK', 'bristow', 'drumright', 'CUSTER', 'DELAWARE', 'DEWEY', 'ELLIS', 'GARFIELD', 'GARVIN', 'GRADY', 'GRANT', 'GREER', 'HARMON', 'HARPER', 'HASKELL', 'HUGHES', 'JACKSON', 'JEFFERSON', 'JOHNSTON', 'KAY', 'poncacity', 'KINGFISHER', 'KIOWA', 'LATIMER', 'LEFLORE', 'LINCOLN', 'LOGAN', 'LOVE', 'MAJOR', 'MARSHALL', 'MAYES', 'MCCLAIN', 'MCCURTAIN', 'MCINTOSH', 'MURRAY', 'MUSKOGEE', 'NOBLE', 'NOWATA', 'OKFUSKEE', 'OKLAHOMA', 'OKMULGEE', 'OSAGE', 'OTTAWA', 'PAYNE', 'PAWNEE', 'PITTSBURG', 'PONTOTOC', 'POTTAWATOMIE', 'PUSHMATAHA', 'rogermills', 'ROGERS', 'SEMINOLE', 'SEQUOYAH', 'STEPHENS', 'TEXAS', 'TILLMAN', 'TULSA', 'WAGONER', 'WASHINGTON', 'WASHITA', 'WOODS', 'WOODWARD']
 // .splice(0,15);
 
-const ALL_COUNTIES = ["PAWNEE"];
+// const ALL_COUNTIES = ["Harper","Harmon","Coal","Garvin","Pontotoc","Johnston","Kingfisher","LeFlore","RogerMills"];
 const ERRORS = [];
+const ALL_COUNTIES = ["bryan"];
 
 
 // console.log(ALL_COUNTIES);
@@ -29,7 +30,7 @@ let linkWritten = 0;
 const processResponse = function processResponse($) {
     $('a[href^="GetCaseInformation"]').each(function() {
         let title = $(this).text().toUpperCase();
-        if (title.includes('STATE OF OKLAHOMA V')) {
+        if ((title.includes('STATE OF OKLAHOMA V')) || (title.includes('STATE OF OKLAHOMA  V'))) {
             let link = `https://www.oscn.net/dockets/` + $(this).attr('href')
             linkCount ++;
             LINKS.push(link);       
@@ -123,7 +124,7 @@ let myGreeting = setTimeout(function sayHi() {
         linkWritten ++;
         fs.appendFileSync('links-by-county/' + ALL_COUNTIES + '.txt', link + ',' + '\n');
         // works for doing it one at a time but testing wiht test
-        // fs.appendFileSync('links-by-county/total.txt', link + '\n');
+        // fs.appendFileSync('links-by-county/missing.txt', link + '\n');
     })
     console.log('llllllllllll links written: ' + linkWritten);
     ERRORS.forEach(function(err) {
