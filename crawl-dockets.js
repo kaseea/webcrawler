@@ -9,6 +9,7 @@ let crawlPageErrors = ['none'];
 let processTime = 0;
 const ERRORS = ['nope'];
 let cmidsCrawled = 0;
+let linkCounter = 0;
 
 // REMINDERS
 // remove the code that takes out last , cause I just decided not to write that comma
@@ -22,7 +23,11 @@ const loadPage = function loadPage(url, county) {
             headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'}
         }, 
         function (error, response, body) {
-            if (!error) {
+
+            if (!error) {            
+                console.log("sfdasd here " + linkCounter)
+                linkCounter--;
+                console.log("zzzd here " + linkCounter)
                 docketCrawlCount ++;
                 let $ = cheerio.load(body);
                 const reg = /,/g;
@@ -43,8 +48,7 @@ const loadPage = function loadPage(url, county) {
                         fee = fee.replace(reg3, '');
                         fee = fee.replace(reg, '');
                         fee = fee.trim();
-                        // let countyFile = 'fees-by-county/' + county + '.txt'; 
-                        let countyFile = 'fees-by-county/missing.txt'; 
+                        let countyFile = 'fees-by-county/letsGetThis.txt'; 
                         if ((fee !== 'mount') && (description !== 'Description')) {
                             try {
                                 fs.appendFileSync(countyFile, count + ',' + cmid + ',' + description + ',' + fee + '\n');
@@ -58,9 +62,18 @@ const loadPage = function loadPage(url, county) {
                     }
                 })
             } else {
+                console.log("sfdasd here " + linkCounter)
+                linkCounter--;
+                console.log("zzzd here " + linkCounter)
                 console.log("We’ve encountered an error in loadPage: " + error);
                 let tempErr = 'error on ' + url + '  error  ' + error;
                 loadPageErrors.push(tempErr);
+                try {
+                    fs.appendFileSync("fees-by-county/failedToCrawl.txt", url + '\n');
+                } catch (err) {
+                    console.log('************** somethings up in the writing error')
+                    ERRORS.push('there was an error on writing this url  ' + url);
+                }
             }
         }
       );
@@ -72,26 +85,19 @@ const loadPage = function loadPage(url, county) {
 
 const crawlPage = function crawlPage() {
     let county = 'missing';
-    fs.readFile('links-by-county/' + county + '.txt', 'utf8', function (err, data) {
+    // fs.readFile('links-by-county/' + county + '.txt', 'utf8', function (err, data) {
+    fs.readFile('links-by-county/letsGetThis.txt', 'utf8', function (err, data) {
         if (!err) {
         const dataArray = data.split(/\r?\n/);
         console.log('docket links to be anaylzed: ' + dataArray.length);
-        processTime = dataArray.length * 150;
-        // let tempArray = dataArray.splice(0,1500);
-        // processTime = tempArray.length * 101;
-        // console.log('docket links to be anaylzed: ' + tempArray.length)
+        processTime = dataArray.length * 50;
+        linkCounter = dataArray.length;
+        console.log("asdfasdf linkCounter  " + linkCounter)
         dataArray.forEach(function(link, index) {
-        // tempArray.forEach(function(link, index) {
-            // console.log(link);
-            // console.log(index);
             let pleaseSetTimeout = setTimeout(function pleaseSetTimeout() {
-
-                // console.log('sending loadPage ' + link);
+                // linkCounter++;
                 loadPage(link, county);
-                // console.log('index in timeout   ' + index);
-            
-            }, index * 300)
-            // loadPage(link, county);
+            }, index * 100)
         })
         } else {
             console.log('error for crawlPage: ' + err);
@@ -99,24 +105,18 @@ const crawlPage = function crawlPage() {
             crawlPageErrors.push(newErr)
         }
       });
-    // txtFile.forEach(function(link) {
-        // setTimeout(loadPage(link, element), 2000);
-        
-    // })
 }
 
 
 crawlPage()
-// function myFunction() {
-//     // your code to run after the timeout
-// }
-
-// // stop for sometime if needed
-// setTimeout(myFunction, 5000);
 
 let findTimout = setTimeout(function waiting() {
     let myGreeting = setTimeout(function sayHi() {
-        // crawlPage(distinctLinks);
+        if (linkCounter > 0) {
+            console.log("triggered linkCount  is   " + linkCounter)
+            let newTimer = linkCounter * 1000
+            setTimeout(sayHi,newTimer)
+        }
         console.log('ddddddddddd dockets crawled: ' + docketCrawlCount);
         loadPageErrors.forEach(function(err) {
             console.log(err);
