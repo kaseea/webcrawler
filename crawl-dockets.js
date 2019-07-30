@@ -23,8 +23,19 @@ const loadPage = function loadPage(url, county) {
             headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'}
         }, 
         function (error, response, body) {
-
+            try {
+                fs.appendFileSync("fees-by-county/dupTest.txt", url + '\n');
+            } catch (err) {
+                console.log('************** somethings up in the writing error')
+                ERRORS.push('this is the writing failure for the testing duplicates, failed to be put in originally ' + url);
+            }
             if (!error) {            
+                try {
+                    fs.appendFileSync("fees-by-county/dupTest.txt", url + '\n');
+                } catch (err) {
+                    console.log('************** somethings up in the writing error')
+                    ERRORS.push('this is the writing failure for the testing duplicates  ' + url);
+                }
                 docketCrawlCount ++;
                 let $ = cheerio.load(body);
                 const reg = /,/g;
@@ -45,7 +56,7 @@ const loadPage = function loadPage(url, county) {
                         fee = fee.replace(reg3, '');
                         fee = fee.replace(reg, '');
                         fee = fee.trim();
-                        let countyFile = 'fees-by-county/PleaseLetThisBeTheLast.txt'; 
+                        let countyFile = 'fees-by-county/PleaseLetThisBeTheLast2.txt'; 
                         if ((fee !== 'mount') && (description !== 'Description')) {
                             try {
                                 fs.appendFileSync(countyFile, count + ',' + cmid + ',' + description + ',' + fee + '\n');
@@ -64,7 +75,7 @@ const loadPage = function loadPage(url, county) {
                 let tempErr = 'error on ' + url + '  error  ' + error;
                 loadPageErrors.push(tempErr);
                 try {
-                    fs.appendFileSync("fees-by-county/failedToCrawl.txt", url + '\n');
+                    fs.appendFileSync("fees-by-county/failedToCrawl2.txt", url + '\n');
                 } catch (err) {
                     console.log('************** somethings up in the writing error')
                     ERRORS.push('there was an error on writing this url  ' + url);
@@ -85,18 +96,18 @@ const loadPage = function loadPage(url, county) {
 const crawlPage = function crawlPage() {
     let county = 'missing';
     // fs.readFile('links-by-county/' + county + '.txt', 'utf8', function (err, data) {
-    fs.readFile('links-by-county/PLEASEpleaseMe2.txt', 'utf8', function (err, data) {
+    fs.readFile('links-by-county/PLEASEpleaseMe5.txt', 'utf8', function (err, data) {
         if (!err) {
         const dataArray = data.split(/\r?\n/);
         console.log('docket links to be anaylzed: ' + dataArray.length);
-        processTime = dataArray.length * 3050;
+        processTime = dataArray.length;
         linkCounter = dataArray.length;
         console.log("asdfasdf linkCounter  " + linkCounter)
         dataArray.forEach(function(link, index) {
             let pleaseSetTimeout = setTimeout(function pleaseSetTimeout() {
                 // linkCounter++;
                 loadPage(link, county);
-            }, index * 3000)
+            }, index * 100)
         })
         } else {
             console.log('error for crawlPage: ' + err);
@@ -113,7 +124,7 @@ let findTimout = setTimeout(function waiting() {
     let myGreeting = setTimeout(function sayHi() {
         if (linkCounter > 0) {
             console.log("triggered linkCount  is   " + linkCounter)
-            let newTimer = linkCounter * 1000
+            let newTimer = 100000
             setTimeout(sayHi,newTimer)
         }
         console.log('ddddddddddd dockets crawled: ' + docketCrawlCount);

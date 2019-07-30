@@ -120,6 +120,8 @@ const getPage = function getPage(urlBase, lastDate) {
             })
     } else {
         getPage(urlBase, dateParser(lastDate))
+        linkQueue.delete(getPageUrl)
+        console.log("@@@@@ well this happened linkQueue size is " + linkQueue.size)
     }
 }
 
@@ -206,7 +208,7 @@ let myGreeting = setTimeout(function sayHi() {
         distinctLinks.forEach(function(link) {
             linkWritten ++;
             try {
-                fs.appendFileSync('links-by-county/PLEASEpleaseMe4.txt', link + '\n');
+                fs.appendFileSync('links-by-county/PLEASEpleaseMe5.txt', link + '\n');
             } catch (err) {
                 console.log('************** somethings up in the writing error')
                 ERRORS.push('there was an error on writing this link  ' + link);
