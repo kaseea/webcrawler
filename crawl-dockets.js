@@ -25,9 +25,6 @@ const loadPage = function loadPage(url, county) {
         function (error, response, body) {
 
             if (!error) {            
-                console.log("sfdasd here " + linkCounter)
-                linkCounter--;
-                console.log("zzzd here " + linkCounter)
                 docketCrawlCount ++;
                 let $ = cheerio.load(body);
                 const reg = /,/g;
@@ -48,7 +45,7 @@ const loadPage = function loadPage(url, county) {
                         fee = fee.replace(reg3, '');
                         fee = fee.replace(reg, '');
                         fee = fee.trim();
-                        let countyFile = 'fees-by-county/letsGetThis.txt'; 
+                        let countyFile = 'fees-by-county/PleaseLetThisBeTheLast.txt'; 
                         if ((fee !== 'mount') && (description !== 'Description')) {
                             try {
                                 fs.appendFileSync(countyFile, count + ',' + cmid + ',' + description + ',' + fee + '\n');
@@ -61,10 +58,8 @@ const loadPage = function loadPage(url, county) {
                         
                     }
                 })
-            } else {
-                console.log("sfdasd here " + linkCounter)
                 linkCounter--;
-                console.log("zzzd here " + linkCounter)
+            } else {
                 console.log("We’ve encountered an error in loadPage: " + error);
                 let tempErr = 'error on ' + url + '  error  ' + error;
                 loadPageErrors.push(tempErr);
@@ -74,6 +69,10 @@ const loadPage = function loadPage(url, county) {
                     console.log('************** somethings up in the writing error')
                     ERRORS.push('there was an error on writing this url  ' + url);
                 }
+
+                console.log("sfdasd here " + linkCounter)
+                linkCounter--;
+                console.log("zzzd here " + linkCounter)
             }
         }
       );
@@ -86,18 +85,18 @@ const loadPage = function loadPage(url, county) {
 const crawlPage = function crawlPage() {
     let county = 'missing';
     // fs.readFile('links-by-county/' + county + '.txt', 'utf8', function (err, data) {
-    fs.readFile('links-by-county/letsGetThis.txt', 'utf8', function (err, data) {
+    fs.readFile('links-by-county/PLEASEpleaseMe2.txt', 'utf8', function (err, data) {
         if (!err) {
         const dataArray = data.split(/\r?\n/);
         console.log('docket links to be anaylzed: ' + dataArray.length);
-        processTime = dataArray.length * 50;
+        processTime = dataArray.length * 3050;
         linkCounter = dataArray.length;
         console.log("asdfasdf linkCounter  " + linkCounter)
         dataArray.forEach(function(link, index) {
             let pleaseSetTimeout = setTimeout(function pleaseSetTimeout() {
                 // linkCounter++;
                 loadPage(link, county);
-            }, index * 100)
+            }, index * 3000)
         })
         } else {
             console.log('error for crawlPage: ' + err);

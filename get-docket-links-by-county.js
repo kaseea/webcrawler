@@ -8,10 +8,8 @@ const fs = require('fs');
 
 // "APPELLATE" out because it doesn't work
 
-const ALL_COUNTIES = ["adair", "alfalfa", "ATOKA", "BEAVER", 'BECKHAM', 'BLAINE', 'BRYAN', 'CADDO', 'CANADIAN', 'CARTER', 'CHEROKEE', 'CHOCTAW', 'CIMARRON', 'CLEVELAND', 'COAL', 'COMANCHE', 'COTTON', 'CRAIG', 'CREEK', 'bristow', 'drumright', 'CUSTER', 'DELAWARE', 'DEWEY', 'ELLIS', 'GARFIELD', 'GARVIN', 'GRADY', 'GRANT', 'GREER', 'HARMON', 'HARPER', 'HASKELL', 'HUGHES', 'JACKSON', 'JEFFERSON', 'JOHNSTON', 'KAY', 'poncacity', 'KINGFISHER', 'KIOWA', 'LATIMER', 'LEFLORE', 'LINCOLN', 'LOGAN', 'LOVE', 'MAJOR', 'MARSHALL', 'MAYES', 'MCCLAIN', 'MCCURTAIN', 'MCINTOSH', 'MURRAY', 'MUSKOGEE', 'NOBLE', 'NOWATA', 'OKFUSKEE', 'OKLAHOMA', 'OKMULGEE', 'OSAGE', 'OTTAWA', 'PAYNE', 'PAWNEE', 'PITTSBURG', 'PONTOTOC', 'POTTAWATOMIE', 'PUSHMATAHA', 'rogermills', 'ROGERS', 'SEMINOLE', 'SEQUOYAH', 'STEPHENS', 'TEXAS', 'TILLMAN', 'TULSA', 'WAGONER', 'WASHINGTON', 'WASHITA', 'WOODS', 'WOODWARD']
-// .splice(0,15);
+const ALL_COUNTIES = ["adair", "alfalfa", "ATOKA", "BEAVER", 'BECKHAM', 'BLAINE', 'BRYAN', 'CADDO', 'CANADIAN', 'CARTER', 'CHEROKEE', 'CHOCTAW', 'CIMARRON', 'CLEVELAND', 'COAL', 'COMANCHE', 'COTTON', 'CRAIG', 'CREEK', 'bristow', 'drumright', 'CUSTER', 'DELAWARE', 'DEWEY', 'ELLIS', 'GARFIELD', 'GARVIN', 'GRADY', 'GRANT', 'GREER', 'HARMON', 'HARPER', 'HASKELL', 'HUGHES', 'JACKSON', 'JEFFERSON', 'JOHNSTON', 'KAY', 'poncacity', 'KINGFISHER', 'KIOWA', 'LATIMER', 'LEFLORE', 'LINCOLN', 'LOGAN', 'LOVE', 'MAJOR', 'MARSHALL', 'MAYES', 'MCCLAIN', 'MCCURTAIN', 'MCINTOSH', 'MURRAY', 'MUSKOGEE', 'NOBLE', 'NOWATA', 'OKFUSKEE', 'OKLAHOMA', 'OKMULGEE', 'OSAGE', 'OTTAWA', 'PAYNE', 'PAWNEE', 'PITTSBURG', 'PONTOTOC', 'POTTAWATOMIE', 'PUSHMATAHA', 'rogermills', 'ROGERS', 'SEMINOLE', 'SEQUOYAH', 'STEPHENS', 'TEXAS', 'TILLMAN', 'TULSA', 'WAGONER', 'WASHINGTON', 'WASHITA', 'WOODS', 'WOODWARD'].splice(0,3);
 
-const DAYS = 
 
 // const ALL_COUNTIES = ["Harper","Harmon","Coal","Garvin","Pontotoc","Johnston","Kingfisher","LeFlore","RogerMills"];
 const ERRORS = [];
@@ -57,7 +55,8 @@ const makeURL = function makeURL(urlBase, lastDate) {
 }
 
 const getPage = function getPage(urlBase, lastDate) {
-    request(makeURL(urlBase, lastDate), 
+    let getPageUrl = makeURL(urlBase, lastDate);
+    request(getPageUrl, 
         { strictSSL: false, 
             headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'}
         }, 
@@ -68,19 +67,19 @@ const getPage = function getPage(urlBase, lastDate) {
                 processResponse($)
                 let newDate = new Date($('tr td:nth-child(2)').last().text());
                 if ($('tr').length === 501) {
-                    linkQueueCounter++;
-                    if (linkQueueCounter > 0) { 
-                        console.log("made it here, linkQueueCounter= " + linkQueueCounter + " and LINKSlength " + LINKS.length)
+                    // linkQueueCounter++;
+                    // if (linkQueueCounter > 0) { 
+                        // console.log("made it here, linkQueueCounter= " + linkQueueCounter + " and LINKSlength " + LINKS.length)
                         let pleaseSetTimeout2 = setTimeout(function pleaseSetTimeout2() {
-                            console.log("in the timeout ")
+                            console.log("in the timeout with urlBase " + urlBase + " newDate " + newDate)
                             getPage(urlBase, newDate)
                         }, 1000)
-                    }
-                    linkQueueCounter--;
+                    // }
+                    // linkQueueCounter--;
                 }
             } else {
                 console.log("We’ve encountered an error at the docket page: " + error);
-                ERRORS.push(error);
+                ERRORS.push("error: " + error + " url  " + getPageUrl);
             }
         })
 }
@@ -89,7 +88,8 @@ const crawlLinks = function crawlLinks(links) {
     links.forEach(function(element, index) {
         let pleaseSetTimeout = setTimeout(function pleaseSetTimeout() {
 
-        let url = `https://www.oscn.net/dockets/Results.aspx?db=` + element + `&FiledDateL=01%2F01%2F2019`;
+        let url = `https://www.oscn.net/dockets/Results.aspx?db=` + element + `&FiledDateL=06%2F01%2F2019`;
+        // console.log("url " + url);
         request(url, 
             { strictSSL: false, 
                 headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'}
@@ -101,16 +101,10 @@ const crawlLinks = function crawlLinks(links) {
                     // ignore case
                     $('a[href^="GetCaseInformation"]').each(function() {
                         let title = $(this).text().toUpperCase();
-                        if (title.includes('STATE OF OKLAHOMA V')) {
+                        if ((title.includes('STATE OF OKLAHOMA V')) || (title.includes('STATE OF OKLAHOMA  V'))) {
                             let link = `https://www.oscn.net/dockets/` + $(this).attr('href')
                             linkCount ++;
                             LINKS.push(link);    
-                            // try {
-                            //     fs.appendFileSync('links-by-county/FINALLLLL.txt', link + '\n');
-                            // } catch (err) {
-                            //     console.log('************** somethings up in the writing error')
-                            //     ERRORS.push('there was an error on writing this link  ' + link);
-                            // }
                         } 
                     })
                         
@@ -124,11 +118,11 @@ const crawlLinks = function crawlLinks(links) {
 
                 } else {
                     console.log("We’ve encountered an error: " + error);
-                    ERRORS.push(error);
+                    ERRORS.push("error: " + error + " link " + link);
                 }
             }
           );
-        }, index * 500)
+        }, index * 3500)
     
         } )
 }
@@ -155,7 +149,7 @@ let myGreeting = setTimeout(function sayHi() {
         try {
             // fs.appendFileSync('links-by-county/' + ALL_COUNTIES + '.txt', link + ',' + '\n');
         // works for doing it one at a time but testing wiht test
-        fs.appendFileSync('links-by-county/FINALLLLLL.txt', link + '\n');
+        fs.appendFileSync('links-by-county/juneOnward.txt', link + '\n');
         } catch (err) {
             console.log('************** somethings up in the writing error')
             ERRORS.push('there was an error on writing this link  ' + link);
@@ -170,4 +164,4 @@ let myGreeting = setTimeout(function sayHi() {
     // fs.appendFileSync('adair.txt', link + ',' + fee + '\n');
 
 
-  }, 6000000)
+  }, 600000)
