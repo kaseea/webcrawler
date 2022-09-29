@@ -6,7 +6,7 @@
   "author": "me!",
   "dependencies": {
     "cheerio": "latest",
-    "d3": "^5.9.7",
+    "d3": "^7.6.1",
     "express": "latest",
     "request": "latest"
   }
